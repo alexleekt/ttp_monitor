@@ -65,6 +65,30 @@ const minHour = 8;
 const maxHour = 17;
 ```
 
+### Common Location IDs (NEXUS)
+
+| Location ID | Name | State |
+| :--- | :--- | :--- |
+| 5020 | Blaine NEXUS and FAST Enrollment Center | WA |
+| 5021 | Champlain NEXUS and FAST | NY |
+| 5022 | Buffalo-Ft. Erie EC | ON |
+| 5024 | Port Huron Enrollment Center | MI |
+| 5060 | Warroad Enrollment Center | MN |
+| 5080 | Sault Ste Marie EC | MI |
+| 5100 | Pembina Enrollment Center | ND |
+| 5101 | Houlton Enrollment Center | ME |
+| 5120 | Sweetgrass NEXUS and FAST | MT |
+| 5160 | International Falls EC | MN |
+| 5161 | Niagara Falls EC | NY |
+| 5223 | Derby Line Enrollment Center | VT |
+| 5228 | Buffalo-Ft. Erie EC (Alternate) | ON |
+| 5500 | Calais Enrollment Center | ME |
+| 5520 | Lansdowne | NY |
+| 16511 | Detroit Enrollment Center | MI |
+| 16546 | Ogdensburg Enrollment Center | NY |
+| 16656 | DETROIT NEXUS/FAST | MI |
+| 16712 | Niagara Falls Nexus Only | NY |
+
 ## Example Output
 
 ```text
