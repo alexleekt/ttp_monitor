@@ -6,17 +6,17 @@ A lightweight TypeScript tool for checking Trusted Traveler Program (TTP) appoin
 
 1. **Install [Bun](https://bun.sh/)** if you haven't already.
 2. **Clone** the repository.
-3. **Run** the monitor:
+3. **Run** the checker:
 
 ```bash
 # Default: Scan 6 months from now
-bun monitor.ts
+bun checker.ts
 
 # Specific Range: ISO 8601 (no ms)
-bun monitor.ts 2024-01-01T00:00:00 2024-06-01T23:59:59
+bun checker.ts 2024-01-01T00:00:00 2024-06-01T23:59:59
 
 # Weekend Only: Scan next 30 days
-bun monitor.ts --check-weekends
+bun checker.ts --check-weekends
 ```
 
 ## ✨ Features
@@ -31,7 +31,7 @@ bun monitor.ts --check-weekends
 
 ## ⚙️ Configuration
 
-Options are available at the top of `monitor.ts` and within the `main` function.
+Options are available at the top of `checker.ts` and within the `main` function.
 
 | Setting | Purpose | Default |
 | :--- | :--- | :--- |
