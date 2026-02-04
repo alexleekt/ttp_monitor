@@ -1,6 +1,5 @@
-// Configuration
-const LOCATION_ID = 5020;
-const LOCATION_URL = "https://www.cbp.gov/travel/trusted-traveler-programs/nexus/enrollment-centers/washington";
+// Configuration Defaults
+const DEFAULT_LOCATION_ID = 5020;
 const SCHEDULING_URL = "https://ttp.dhs.gov/schedulerui/schedule-interview/location?lang=en&vo=true&returnUrl=ttp-external&service=nh";
 
 // API URL template
@@ -16,8 +15,8 @@ interface Slot {
     remote: boolean;
 }
 
-async function checkAppointments(startTime: string, endTime: string): Promise<Slot[]> {
-    const url = URL_TEMPLATE.replace("{locationId}", LOCATION_ID.toString())
+async function checkAppointments(locationId: number, startTime: string, endTime: string): Promise<Slot[]> {
+    const url = URL_TEMPLATE.replace("{locationId}", locationId.toString())
         .replace("{start}", startTime)
         .replace("{end}", endTime);
 
@@ -47,14 +46,35 @@ function formatTime(dateStr: string): string {
     return new Date(dateStr).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
+function parseArgs(args: string[]) {
+    const config = {
+        locationId: DEFAULT_LOCATION_ID,
+        minHour: 8,
+        maxHour: 17,
+        checkWeekends: args.includes("--check-weekends"),
+        timeArgs: [] as string[]
+    };
+
+    for (const arg of args) {
+        if (arg.startsWith("--location=")) {
+            config.locationId = parseInt(arg.split("=")[1]);
+        } else if (arg.startsWith("--min-hour=")) {
+            config.minHour = parseInt(arg.split("=")[1]);
+        } else if (arg.startsWith("--max-hour=")) {
+            config.maxHour = parseInt(arg.split("=")[1]);
+        } else if (!arg.startsWith("--")) {
+            config.timeArgs.push(arg);
+        }
+    }
+
+    return config;
+}
+
 async function main() {
-    // Usage: bun run monitor.ts [start_timestamp] [end_timestamp] [--check-weekends]
+    // Usage: bun run monitor.ts [start_timestamp] [end_timestamp] [--check-weekends] [--location=ID] [--min-hour=H] [--max-hour=H]
     // If no args provided, defaults to NOW until 6 months from now.
     const args = process.argv.slice(2);
-    const checkWeekends = args.includes("--check-weekends");
-
-    // Filter out flags from args to get timestamps
-    const timeArgs = args.filter(arg => !arg.startsWith("--"));
+    const config = parseArgs(args);
 
     const now = new Date();
     const sixMonthsLater = new Date(now);
@@ -63,18 +83,19 @@ async function main() {
     let startTs = formatDate(now);
     let endTs = formatDate(sixMonthsLater);
 
-    if (timeArgs.length >= 2) {
-        startTs = timeArgs[0];
-        endTs = timeArgs[1];
+    if (config.timeArgs.length >= 2) {
+        startTs = config.timeArgs[0];
+        endTs = config.timeArgs[1];
     }
 
-    console.log(`Starting Trusted Traveler Appointment Checker for location ${LOCATION_ID}`);
+    console.log(`Starting Trusted Traveler Appointment Checker for location ${config.locationId}`);
     console.log(`Date range: ${startTs} to ${endTs}`);
-    if (checkWeekends) console.log("Mode: Checking for weekends within 30 days");
+    console.log(`Viewing hours: ${config.minHour}:00 to ${config.maxHour}:00`);
+    if (config.checkWeekends) console.log("Mode: Checking for weekends within 30 days");
 
-    const slots = await checkAppointments(startTs, endTs);
+    const slots = await checkAppointments(config.locationId, startTs, endTs);
 
-    if (checkWeekends) {
+    if (config.checkWeekends) {
         const thirtyDaysFromNow = new Date(now);
         thirtyDaysFromNow.setDate(now.getDate() + 30);
 
@@ -112,9 +133,7 @@ async function main() {
         output += `Schedule here: ${SCHEDULING_URL}\n`;
 
         // Visualization: Availability Grid
-        const minHour = 8;
-        const maxHour = 17; // 5 PM
-        const hoursRange = Array.from({ length: maxHour - minHour + 1 }, (_, i) => i + minHour);
+        const hoursRange = Array.from({ length: config.maxHour - config.minHour + 1 }, (_, i) => i + config.minHour);
 
         // Header
         const headerTime = hoursRange.map(h => h.toString().padStart(2, '0')).join(' ');
@@ -155,8 +174,8 @@ async function main() {
 
             for (const slot of daySlots) {
                 const h = new Date(slot.timestamp).getHours();
-                if (h >= minHour && h <= maxHour) {
-                    countsByHour[h - minHour]++;
+                if (h >= config.minHour && h <= config.maxHour) {
+                    countsByHour[h - config.minHour]++;
                 }
             }
 

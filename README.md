@@ -17,6 +17,9 @@ bun checker.ts 2024-01-01T00:00:00 2024-06-01T23:59:59
 
 # Weekend Only: Scan next 30 days
 bun checker.ts --check-weekends
+
+# Custom Location and Hours:
+bun checker.ts --location=5021 --min-hour=10 --max-hour=14
 ```
 
 ## ✨ Features
@@ -33,10 +36,11 @@ bun checker.ts --check-weekends
 
 Options are available at the top of `checker.ts` and within the `main` function.
 
-| Setting | Purpose | Default |
-| :--- | :--- | :--- |
-| `LOCATION_ID` | Enrollment center to monitor. | `5020` (Blaine) |
-| `minHour` / `maxHour` | Grid display range (24h). | `8` - `17` |
+| Setting | CLI Flag | Purpose | Default |
+| :--- | :--- | :--- | :--- |
+| `LOCATION_ID` | `--location=ID` | Enrollment center to monitor. | `5020` (Blaine) |
+| `minHour` | `--min-hour=H` | Grid start hour (24h). | `8` |
+| `maxHour` | `--max-hour=H` | Grid end hour (24h). | `17` |
 
 <details>
 <summary><b>Common Location IDs (NEXUS)</b></summary>
