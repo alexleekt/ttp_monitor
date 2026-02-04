@@ -1,6 +1,6 @@
-# TTP Monitor
+# Trusted Traveler Appointment Checker
 
-A lightweight TypeScript tool for monitoring TTP / Global Entry appointment availability with visual grids and weekend-only alerts.
+A lightweight TypeScript tool for checking Trusted Traveler Program (TTP) appointment availability with visual grids and weekend-only alerts.
 
 ## 🚀 Quick Start
 

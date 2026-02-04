@@ -68,7 +68,7 @@ async function main() {
         endTs = timeArgs[1];
     }
 
-    console.log(`Starting monitor for location ${LOCATION_ID}`);
+    console.log(`Starting Trusted Traveler Appointment Checker for location ${LOCATION_ID}`);
     console.log(`Date range: ${startTs} to ${endTs}`);
     if (checkWeekends) console.log("Mode: Checking for weekends within 30 days");
 
