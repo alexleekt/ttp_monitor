@@ -161,6 +161,11 @@ input:focus {
     gap: 0.5rem;
 }
 
+.primary-btn.full-width {
+    width: 100%;
+    justify-content: center;
+}
+
 .primary-btn:hover {
     background-color: var(--primary-hover);
     transform: translateY(-1px);
