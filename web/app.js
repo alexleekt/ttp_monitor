@@ -143,6 +143,14 @@ function renderResults(slots, minHour, maxHour, checkWeekends) {
             const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' });
             const dayNum = dateObj.getUTCDate().toString().padStart(2, '0');
 
+            // Calculate color class
+            const now = new Date();
+            const diffTime = dateObj.getTime() - now.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            let colorClass = 'red';
+            if (diffDays < 28) colorClass = 'green';
+            else if (diffDays <= 56) colorClass = 'yellow';
+
             const daySlots = grouped[month][date];
             const countsByHour = new Array(hours.length).fill(0);
 
@@ -155,10 +163,10 @@ function renderResults(slots, minHour, maxHour, checkWeekends) {
 
             rowsHtml += `
                 <tr>
-                    <td class="date-cell">${dayNum} (${dayName})</td>
+                    <td class="date-cell ${colorClass}">${dayNum} (${dayName})</td>
                     ${countsByHour.map(c => `
                         <td>
-                            <span class="slot-dot ${c > 0 ? 'available' : 'empty'}">
+                            <span class="slot-dot ${c > 0 ? 'available ' + colorClass : 'empty'}">
                                 ${c > 0 ? c : '.'}
                             </span>
                         </td>
