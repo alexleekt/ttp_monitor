@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trusted Traveler Appointment Checker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="dark-mode">
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <span class="icon">✈️</span>
+                <h1>Trusted Traveler Appointment Checker</h1>
+            </div>
+            <div class="header-actions">
+                <button id="refresh-btn" class="primary-btn">
+                    <span class="btn-text">Check Availability</span>
+                    <span class="loader hidden"></span>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <aside class="sidebar glass">
+                <section class="config-section">
+                    <h3>Location</h3>
+                    <div class="input-group">
+                        <select id="location-select">
+                            <option value="5020">Blaine NEXUS (WA)</option>
+                            <option value="5021">Champlain NEXUS (NY)</option>
+                            <option value="5022">Buffalo-Ft. Erie (ON)</option>
+                            <option value="5024">Port Huron (MI)</option>
+                            <option value="5060">Warroad (MN)</option>
+                            <option value="5080">Sault Ste Marie (MI)</option>
+                            <option value="5100">Pembina (ND)</option>
+                            <option value="5101">Houlton (ME)</option>
+                            <option value="5120">Sweetgrass NEXUS (MT)</option>
+                            <option value="5160">International Falls (MN)</option>
+                            <option value="5161">Niagara Falls (NY)</option>
+                            <option value="5500">Calais (ME)</option>
+                            <option value="5520">Lansdowne (NY)</option>
+                            <option value="16511">Detroit (MI)</option>
+                            <option value="16656">Detroit NEXUS/FAST (MI)</option>
+                        </select>
+                    </div>
+                </section>
+
+                <section class="config-section">
+                    <h3>Date Range</h3>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="start-date">Start</label>
+                            <input type="date" id="start-date">
+                        </div>
+                        <div class="input-group">
+                            <label for="end-date">End</label>
+                            <input type="date" id="end-date">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="config-section">
+                    <h3>Hour Range</h3>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="min-hour">Min (24h)</label>
+                            <input type="number" id="min-hour" value="8" min="0" max="23">
+                        </div>
+                        <div class="input-group">
+                            <label for="max-hour">Max (24h)</label>
+                            <input type="number" id="max-hour" value="17" min="0" max="23">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="config-section">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="weekend-toggle">
+                        <label for="weekend-toggle">Check Weekends Only (Next 30 days)</label>
+                    </div>
+                </section>
+
+                <div class="sidebar-footer">
+                    <p>Built with 🩵 by Antigravity</p>
+                </div>
+            </aside>
+
+            <section class="content">
+                <div id="summary-cards" class="hidden">
+                    <div class="card glass highlight">
+                        <span class="card-label">Total Slots</span>
+                        <span id="total-slots" class="card-value">0</span>
+                    </div>
+                    <div class="card glass">
+                        <span class="card-label">Available Days</span>
+                        <span id="total-days" class="card-value">0</span>
+                    </div>
+                </div>
+
+                <div id="results-container" class="glass">
+                    <div id="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <p>Select a location and click "Check Availability" to see open slots.</p>
+                    </div>
+                    <div id="grid-wrapper" class="hidden">
+                        <!-- Iterative grid content here -->
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>

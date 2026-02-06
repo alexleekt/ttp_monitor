@@ -1,6 +1,26 @@
 # Trusted Traveler Appointment Checker
 
-A lightweight TypeScript tool for checking Trusted Traveler Program (TTP) appointment availability with visual grids and weekend-only alerts.
+A modern, responsive web application and lightweight TypeScript CLI tool for checking Trusted Traveler Program (TTP) appointment availability with visual grids and weekend-only alerts.
+
+## 🌐 Web Version
+
+The web version provides a premium interactive interface and can be hosted on GitHub Pages.
+
+- **Live Demo**: [https://alexleekt.github.io/trusted-traveler-appointment-checker/](https://alexleekt.github.io/trusted-traveler-appointment-checker/)
+- **Features**: Interactive location search, date/hour range selection, and a beautiful availability grid.
+
+### 🚀 Local Development (Web)
+
+```bash
+npm install
+npm run dev
+```
+
+### 📦 Deployment
+
+This project is configured to automatically deploy to GitHub Pages via GitHub Actions when you push to the `main` branch. 
+
+**Note**: You must go to your repository **Settings > Pages** and set the **Source** to **GitHub Actions**.
 
 ## 🚀 Quick Start
 
